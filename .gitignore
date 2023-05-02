@@ -162,3 +162,7 @@ examensarbete_key.pub
 credentials.json
 .terraform
 -terraform.lock.hcl
+.terraform
+.terraform.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.backup
