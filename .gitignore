@@ -161,7 +161,7 @@ cython_debug/
 examensarbete_key.pub
 credentials.json
 .terraform
--terraform.lock.hcl
+.terraform.lock.hcl
 .terraform
 .terraform.tfstate.lock.info
 terraform.tfstate
