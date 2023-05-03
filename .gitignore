@@ -166,3 +166,11 @@ credentials.json
 .terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
+*.tfstate.backup
+.terraform
+.*.lock.hcl
+*.tfstate
+*.tfstate.backup
+files/.ssh/*
+files/user_data_*.cfg
+*.log
