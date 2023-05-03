@@ -23,6 +23,8 @@ jobs:
     # runs-on: ghcr.io/solidify-internal/jtmm:latest
     container:
       image: ghcr.io/solidify-internal/jtmm:latest
+      with:
+        entrypoint: python3 -u main.py
       credentials:
         username: ${{ secrets.EJO_GITHUB_USERNAME }}
         password: ${{ secrets.EJO_GITHUB_TOKEN }}
@@ -36,7 +38,7 @@ jobs:
 
     steps:
       - run: python3 -u main.py
-    
+
     
     # steps:
     #   - uses: docker/login-action@v2
