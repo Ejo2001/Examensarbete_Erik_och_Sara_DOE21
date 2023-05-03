@@ -37,7 +37,9 @@ jobs:
       
      
     steps:
-      - run: echo hi
+      - run: pwd
+      - run: ls
+      - run: ls /*
     
     # steps:
     #   - uses: docker/login-action@v2
