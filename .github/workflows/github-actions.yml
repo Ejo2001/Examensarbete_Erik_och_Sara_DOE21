@@ -19,7 +19,8 @@ jobs:
 
   test_container_image:
     runs-on: ubuntu-latest
-    with:
+    
+    container:
       image: ghcr.io/solidify-internal/jtmm:latest
       entrypoint: python3 -u main.py
       credentials:
