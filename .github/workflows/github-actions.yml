@@ -35,10 +35,7 @@ jobs:
           ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
 
     steps:
-      - uses: docker://ghcr.io/solidify-internal/jtmm:latest
-        with:
-          entrypoint: python3 -u main.py
-          #args: --help
+      - run: python3 -u main.py
     
     
     # steps:
