@@ -19,7 +19,7 @@ jobs:
 
   test_container_image:
     runs-on: ubuntu-latest
-    
+
     container:
       image: ghcr.io/solidify-internal/jtmm:latest
       entrypoint: python3 -u main.py
@@ -37,7 +37,8 @@ jobs:
       steps:
         - run: python3 -u main.py
      
-
+    steps:
+      - run: echo hi
     
     # steps:
     #   - uses: docker/login-action@v2
