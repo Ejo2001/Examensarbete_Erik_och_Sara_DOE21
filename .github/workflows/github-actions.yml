@@ -36,7 +36,7 @@ jobs:
      
     steps:
       - run: echo $EJO_GITHUB_USERNAME
-      - run: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN
+      - run: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
       - run: docker run -it --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7
     
     # steps:
