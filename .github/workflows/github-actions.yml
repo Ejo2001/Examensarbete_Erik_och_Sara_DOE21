@@ -35,7 +35,6 @@ jobs:
           ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
 
     steps:
-      - name: stuff
       - run: echo hi
     
     
