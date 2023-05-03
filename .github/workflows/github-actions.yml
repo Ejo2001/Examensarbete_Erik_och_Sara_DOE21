@@ -35,6 +35,7 @@ jobs:
       
      
     steps:
+      - run: echo "All your pipes are belong to me"
       - run: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
       - run: docker run -dt --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7
     
