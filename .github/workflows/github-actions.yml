@@ -39,12 +39,23 @@ jobs:
       - run: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
       - run: docker run -dt --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7
     
-    # steps:
-    #   - uses: docker/login-action@v2
-    #     with:
-    #       registry: ghcr.io
-    #       username: ${{ secrets.EJO_GITHUB_USERNAME }}
-    #       password: ${{ secrets.EJO_GITHUB_TOKEN }}
-    #   - uses: docker://ghcr.io/solidify-internal/jtmm:latest
-    #     with:
-    #       entrypoint: python3 -u main.py 
+
+test_container_image_two:
+  runs-on: docker://ghcr.io/solidify-internal/jtmm:latest
+
+  env:
+        JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
+        AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
+        AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
+        ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
+        EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
+        EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
+
+
+  steps:
+   - run: echo Hello
+   - run: ls
+   - run: ls /*
+   - run: pwd
