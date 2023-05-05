@@ -1,3 +1,9 @@
+
+aras_venv   
+terraform.exe
+examensarbete_key
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
