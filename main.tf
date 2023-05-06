@@ -98,3 +98,8 @@ resource "azurerm_linux_virtual_machine" "examen-vm" {
     azurerm_network_interface.examen-interface
   ]
 }
+
+resource "local_file" "private_key" {
+    content  = azurerm_public_ip.vm-external-ip.ip_address
+    filename = "public_ip.txt"
+}

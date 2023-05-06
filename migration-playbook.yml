@@ -1,0 +1,21 @@
+---
+- name: Standard Setup
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Update VM
+    ansible.builtin.apt:
+      name: '*'
+      state: latest
+      update_cache: true
+  - name: Install docker
+    ansible.builtin.apt:
+        pkg:
+          - docker
+          - docker-compose
+          - docker-registry
+          - docker.io
+  - name: Run Caprover
+    ansible.builtin.shell:
+      cmd: docker run -p 80:80 -p 443:443 -p 3000:3000 -v /var/run/docker.sock:/var/run/docker.sock -v /captain:/captain caprover/caprover || true
