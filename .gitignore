@@ -174,3 +174,4 @@ terraform.tfstate.backup
 files/.ssh/*
 files/user_data_*.cfg
 *.log
+examensarbete_key_private

@@ -1,4 +1,5 @@
 ---
+# sudo ansible-playbook migration-playbook.yml -i inventory.yml
 - name: Standard Setup
   hosts: all
   become: yes
@@ -16,6 +17,6 @@
           - docker-compose
           - docker-registry
           - docker.io
-  - name: Run Caprover
+  - name: Run Migration
     ansible.builtin.shell:
-      cmd: docker run -p 80:80 -p 443:443 -p 3000:3000 -v /var/run/docker.sock:/var/run/docker.sock -v /captain:/captain caprover/caprover || true
+      cmd: docker run -dt ubuntu:latest
