@@ -109,9 +109,9 @@ resource "local_file" "public_ip_txt" {
 
 data "azurerm_client_config" "current" {}
 
-data "azuread_user" "user"{
-user_principal_name = "erik.olsson@solidify.dev"
-}
+# data "azuread_user" "user"{
+# user_principal_name = "erik.olsson@solidify.dev"
+# }
 
 resource "azurerm_key_vault" "exam_key_vault" {
   name                        = "ejoexamkeyvault"
