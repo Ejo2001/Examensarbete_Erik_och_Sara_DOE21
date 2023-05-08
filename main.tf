@@ -120,24 +120,18 @@ resource "azurerm_key_vault" "exam_key_vault" {
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
+  purge_protection_enabled = false 
+  enable_rbac_authorization = false
 
   sku_name = "standard"
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azuread_user.user.object_id
-    
-
-    secret_permissions = [
-      "Get",
-      "List",
-      "Delete",
-      "Recover",
-      "Backup",
-      "Restore",
-      "Set",
-    ]
+  dynamic "access_policy" { 
+    for_each = data.azuread_group.team_members.members
+    content { 
+      tenant_id = data.azurerm_client_config.current.tenant_id 
+      object_id = "99914d35-530c-4bd6-a3e1-2d27918da0eb" #access_policy.value 
+      secret_permissions = [ "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set", "Get" ] 
+      } 
   }
 }
 
