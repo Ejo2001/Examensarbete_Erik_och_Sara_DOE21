@@ -148,3 +148,4 @@ resource "azurerm_key_vault" "exam_key_vault" {
 #   value        = "secretpass!"
 #   key_vault_id = azurerm_key_vault.exam_key_vault.id
 # }
+

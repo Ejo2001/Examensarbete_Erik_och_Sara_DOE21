@@ -15,47 +15,35 @@ jobs:
           username: ${{ secrets.EJO_GITHUB_USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+
+  deploy_migration:
+      runs-on: ubuntu-latest
+      steps:
+        - run: apt update; apt install terraform -y
+        - run: az login -u <username> -p <password>
+        - run: terraform init
+        - run: terraform apply
   
 
-  test_container_image:
-    runs-on: ubuntu-latest
+  # test_container_image:
+  #   runs-on: ubuntu-latest
 
-    #image: ghcr.io/solidify-internal/jtmm:latest
-
-    env:
-        JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
-        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
-        AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
-        AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
-        ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
-        EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
-        EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
+  #   env:
+  #       JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
+  #       JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+  #       JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
+  #       AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
+  #       AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
+  #       ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
+  #       EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
+  #       EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
 
       
      
-    steps:
-      - run: echo "All your pipes are belong to me"
-      - run: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
-      - run: docker run -dt --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7
+  #   steps:
+  #     - run: echo "All your pipes are belong to me"
+  #     - run: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
+  #     - run: docker run -dt --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7
     
 
-  test_container_image_two:
-    runs-on: docker://ghcr.io/solidify-internal/jtmm:latest
-
-    env:
-          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
-          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-          JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
-          AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
-          AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
-          ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
-          EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
-          EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
-
-
-    steps:
-    - run: echo Hello
-    - run: ls
-    - run: ls /*
-    - run: pwd
+    
