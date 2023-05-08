@@ -125,12 +125,10 @@ resource "azurerm_key_vault" "exam_key_vault" {
 
   sku_name = "standard"
 
-  dynamic "access_policy" { 
-    content { 
+  access_policy { 
       tenant_id = data.azurerm_client_config.current.tenant_id 
       object_id = "99914d35-530c-4bd6-a3e1-2d27918da0eb" #access_policy.value 
       secret_permissions = [ "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set", "Get" ] 
-      } 
   }
 }
 
