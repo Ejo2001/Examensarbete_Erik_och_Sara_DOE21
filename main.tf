@@ -71,7 +71,7 @@ resource "azurerm_linux_virtual_machine" "examen-vm" {
   name                = "examens-arbete-VM"
   resource_group_name = azurerm_resource_group.examengroup.name
   location            = azurerm_resource_group.examengroup.location
-  size                = "Standard_B1ls"
+  size                = "Standard_D2s_v3"
   admin_username      = "adminuser"
   network_interface_ids = [
     azurerm_network_interface.examen-interface.id,
@@ -99,7 +99,7 @@ resource "azurerm_linux_virtual_machine" "examen-vm" {
   ]
 }
 
-resource "local_file" "private_key" {
+resource "local_file" "public_ip_txt" {
     content  = azurerm_public_ip.vm-external-ip.ip_address
     filename = "public_ip.txt"
 }
