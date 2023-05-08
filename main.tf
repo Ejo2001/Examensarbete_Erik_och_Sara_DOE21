@@ -126,7 +126,6 @@ resource "azurerm_key_vault" "exam_key_vault" {
   sku_name = "standard"
 
   dynamic "access_policy" { 
-    for_each = data.azuread_group.team_members.members
     content { 
       tenant_id = data.azurerm_client_config.current.tenant_id 
       object_id = "99914d35-530c-4bd6-a3e1-2d27918da0eb" #access_policy.value 
