@@ -19,7 +19,7 @@ jobs:
   deploy_migration:
       runs-on: ubuntu-latest
       steps:
-        - run: apt update; apt install terraform -y
+        - run: sudo apt update; sudo apt install terraform -y
         - run: az login -u <username> -p <password>
         - run: terraform init
         - run: terraform apply
