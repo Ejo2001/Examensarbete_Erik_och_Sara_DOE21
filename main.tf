@@ -80,7 +80,7 @@ resource "azurerm_linux_virtual_machine" "examen-vm" {
   
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("${path.cwd}/examensarbete_key.pub")
+    public_key = file("${path.cwd}/examensarbete_key_aras.pub")
   }
 
   os_disk {
