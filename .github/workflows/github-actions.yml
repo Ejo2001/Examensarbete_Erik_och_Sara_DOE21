@@ -33,6 +33,7 @@ jobs:
         EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
         EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
         PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
+        ANSIBLE_HOST_KEY_CHECKING: False
 
       steps:
         - run: az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
@@ -65,8 +66,7 @@ jobs:
         - run: touch private_ssh_key
         - run: echo $PRIVATE_SSH_KEY > private_ssh_key
         - run: chmod 600 private_ssh_key
-        - run: export ANSIBLE_HOST_KEY_CHECKING=False
-        - run: ansible-playbook migration-playbook.yml -vvvv --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt --key-file "$(pwd)/private_ssh_key"
+        - run: ansible-playbook migration-playbook.yml -vvvv --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt --key-file "$(pwd)/private_ssh_key" --user "adminuser"
         - run: terraform destroy -auto-approve
 
    
