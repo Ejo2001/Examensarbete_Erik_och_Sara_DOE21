@@ -32,7 +32,8 @@ jobs:
         - run: gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint
         - run: echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
         - run: sudo apt update
-        - run: sudo apt-get install terraform
+        - run: sudo apt-get install terraform python3 python3-pip
+        - run: python3 -m pip install ansible
         - name: checkout repo
           uses: actions/checkout@v2.3.4
         - run: terraform init
