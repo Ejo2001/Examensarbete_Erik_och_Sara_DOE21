@@ -71,7 +71,7 @@ resource "azurerm_linux_virtual_machine" "examen-vm" {
   name                = "examens-arbete-VM"
   resource_group_name = azurerm_resource_group.examengroup.name
   location            = azurerm_resource_group.examengroup.location
-  size                = "Standard_B1ls"
+  size                = "Standard_D2s_v3"
   admin_username      = "adminuser"
   network_interface_ids = [
     azurerm_network_interface.examen-interface.id,
@@ -90,11 +90,53 @@ resource "azurerm_linux_virtual_machine" "examen-vm" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
   depends_on = [
     azurerm_network_interface.examen-interface
   ]
 }
+
+resource "local_file" "public_ip_txt" {
+    content  = azurerm_public_ip.vm-external-ip.ip_address
+    filename = "public_ip.txt"
+}
+
+
+
+
+data "azurerm_client_config" "current" {}
+
+# data "azuread_user" "user"{
+# user_principal_name = "erik.olsson@solidify.dev"
+# }
+
+resource "azurerm_key_vault" "exam_key_vault" {
+  name                        = "ejoexamkeyvault"
+  resource_group_name         = azurerm_resource_group.examengroup.name
+  location                    = azurerm_resource_group.examengroup.location
+  enabled_for_disk_encryption = true
+  tenant_id                   = data.azurerm_client_config.current.tenant_id
+  soft_delete_retention_days  = 7
+  purge_protection_enabled = false 
+  enable_rbac_authorization = false
+
+  sku_name = "standard"
+
+  access_policy { 
+      tenant_id = data.azurerm_client_config.current.tenant_id 
+      object_id = "bd22b5be-8949-49c5-822b-a26be8eb4506" #access_policy.value 
+      secret_permissions = [ "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set", "Get" ] 
+  }
+}
+
+
+# Set a secret
+# resource "azurerm_key_vault_secret" "set_token" {
+#   name         = "secretpassword"
+#   value        = "secretpass!"
+#   key_vault_id = azurerm_key_vault.exam_key_vault.id
+# }
+

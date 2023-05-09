@@ -1,0 +1,54 @@
+---
+# sudo ansible-playbook migration-playbook.yml -i inventory.yml
+- name: Standard Setup
+  hosts: all
+  become: yes
+  vars:
+    tenant: "NULL"
+    user: "NULL"
+    secret: "NULL"
+
+
+  tasks:
+  - name: Update VM
+    ansible.builtin.apt:
+      name: '*'
+      state: latest
+      update_cache: true
+  - name: Install docker
+    ansible.builtin.apt:
+        pkg:
+          - docker
+          - docker-compose
+          - docker-registry
+          - docker.io
+          - jq
+  - name: Download and install Azure CLI
+    ansible.builtin.shell:
+      cmd: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  - name: Login in to Azure CLI
+    ansible.builtin.shell:
+      cmd: "az login --service-principal -u {{ user }} -p {{ secret }} --tenant {{ tenant }}"
+  - name: Save env variables
+    ansible.builtin.shell:
+      cmd: touch .env
+      cmd: export ZEPHYR_API_TOKEN=$(az keyvault secret show --name ZEPHYR-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: echo "$ZEPHYR_API_TOKEN" >> .env
+      cmd: export AZURE_API_TOKEN=$(az keyvault secret show --name AZURE-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: echo -e "\n$AZURE_API_TOKEN" >> .env
+      cmd: export AZURE_ORGANISATION=$(az keyvault secret show --name AZURE-ORGANISATION --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: echo -e "\n$AZURE_ORGANISATION" >> .env
+      cmd: export JIRA_ACCOUNT_EMAIL=$(az keyvault secret show --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: echo -e "\n$JIRA_ACCOUNT_EMAIL" >> .env
+      cmd: export JIRA_API_TOKEN=$(az keyvault secret show --name JIRA-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: echo -e "\n$JIRA_API_TOKEN" >> .env
+      cmd: export JIRA_DOMAIN=$(az keyvault secret show --name JIRA-DOMAIN --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: echo -e "\n$JIRA_DOMAIN" >> .env
+      cmd: export EJO_GITHUB_TOKEN=$(az keyvault secret show --name EJO-GITHUB-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: export EJO_GITHUB_USERNAME=$(az keyvault secret show --name EJO-GITHUB-USERNAME --vault-name ejoexamkeyvault | jq -r '.value')
+  - name: Login to github docker-registry
+    ansible.builtin.shell:
+      cmd: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
+  - name: Run Migration
+    ansible.builtin.shell:
+      cmd: docker run -it --env-file .env --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7

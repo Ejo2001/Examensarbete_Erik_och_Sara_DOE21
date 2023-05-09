@@ -1,0 +1,7 @@
+all:
+  children:
+    migration_server:
+      hosts:
+        20.67.103.235:
+          ansible_user: adminuser
+          ansible_ssh_private_key_file: examensarbete_key_private
