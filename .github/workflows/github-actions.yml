@@ -43,7 +43,7 @@ jobs:
         - run: az keyvault secret set --name JIRA_ACCOUNT_EMAIL --vault-name ejoexamkeyvault --value ${{ secrets.JIRA_ACCOUNT_EMAIL }} 
         - run: az keyvault secret set --name JIRA_API_TOKEN --vault-name ejoexamkeyvault --value ${{ secrets.JIRA_API_TOKEN }} 
         - run: az keyvault secret set --name JIRA_DOMAIN --vault-name ejoexamkeyvault --value ${{ secrets.JIRA_DOMAIN }} 
-        - run: ansible-playbook --extra-vars="tenant=${{ secrets.ARM_TENANT_ID }} user=${{ secrets.ARM_CLIENT_ID }} secret=${{ secrets.ARM_CLIENT_SECRET }}"
+        - run: ansible-playbook --extra-vars="tenant=${{ secrets.ARM_TENANT_ID }} user=${{ secrets.ARM_CLIENT_ID }} secret=${{ secrets.ARM_CLIENT_SECRET }}" -i $(cat public_ip.txt)
         - run: terraform destroy -auto-approve
 
    
