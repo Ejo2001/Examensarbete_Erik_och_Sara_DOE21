@@ -66,7 +66,7 @@ jobs:
         - run: touch private_ssh_key
         - run: echo $PRIVATE_SSH_KEY > private_ssh_key
         - run: chmod 600 private_ssh_key
-        - run: ansible-playbook migration-playbook.yml -vvvv --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt --key-file "$(pwd)/private_ssh_key" --user "adminuser"
+        - run: ansible-playbook migration-playbook.yml -v --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt --key-file "$(pwd)/private_ssh_key" --user "adminuser"
         - run: terraform destroy -auto-approve
 
    
