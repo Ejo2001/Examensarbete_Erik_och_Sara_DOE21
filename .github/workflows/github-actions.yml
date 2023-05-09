@@ -46,13 +46,13 @@ jobs:
           uses: actions/checkout@v2.3.4
         - run: terraform init
         - run: terraform apply -auto-approve
-        - uses: Azure/login@v1
-          with:
-            credentials: ${{ secrets.AZURE_CREDENTIALS }}
-        - uses: Azure/get-keyvault-secrets@v1
-          with:
-            keyvault: "ejoexamkeyvault" # name of key vault in Azure portal
-            secrets: 'mySecret'  # comma separated list of secret keys to fetch from key vault 
+        # - uses: Azure/login@v1
+        #   with:
+        #     credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        # - uses: Azure/get-keyvault-secrets@v1
+        #   with:
+        #     keyvault: "ejoexamkeyvault" # name of key vault in Azure portal
+        #     secrets: 'mySecret'  # comma separated list of secret keys to fetch from key vault 
           id: myGetSecretAction # ID for secrets that you will reference
         - run: az keyvault set-policy -n ejoexamkeyvault --secret-permissions get list --spn ${{ secrets.APP_ID }}
         - run: az keyvault secret set --name ZEPHYR-API-TOKEN --vault-name ejoexamkeyvault --value $ZEPHYR_API_TOKEN
