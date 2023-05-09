@@ -127,7 +127,7 @@ resource "azurerm_key_vault" "exam_key_vault" {
 
   access_policy { 
       tenant_id = data.azurerm_client_config.current.tenant_id 
-      object_id = "f40f1509-d114-44bc-b317-de2055f5310b" #access_policy.value 
+      object_id = "a4861201-1f6d-41a0-bb43-cad058d03d0e" #access_policy.value 
       secret_permissions = [ "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set", "Get" ] 
   }
 }
