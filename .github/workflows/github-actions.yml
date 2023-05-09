@@ -53,7 +53,7 @@ jobs:
         #   with:
         #     keyvault: "ejoexamkeyvault" # name of key vault in Azure portal
         #     secrets: 'mySecret'  # comma separated list of secret keys to fetch from key vault 
-          id: myGetSecretAction # ID for secrets that you will reference
+          # id: myGetSecretAction # ID for secrets that you will reference
         - run: az keyvault set-policy -n ejoexamkeyvault --secret-permissions get list --spn ${{ secrets.APP_ID }}
         - run: az keyvault secret set --name ZEPHYR-API-TOKEN --vault-name ejoexamkeyvault --value $ZEPHYR_API_TOKEN
         - run: az keyvault secret set --name AZURE-API-TOKEN --vault-name ejoexamkeyvault --value $AZURE_API_TOKEN
