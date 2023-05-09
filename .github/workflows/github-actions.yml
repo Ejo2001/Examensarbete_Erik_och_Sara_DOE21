@@ -63,7 +63,7 @@ jobs:
         - run: az keyvault secret set --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault --value $JIRA_ACCOUNT_EMAIL
         - run: az keyvault secret set --name JIRA-API-TOKEN --vault-name ejoexamkeyvault --value $JIRA_API_TOKEN
         - run: az keyvault secret set --name JIRA-DOMAIN --vault-name ejoexamkeyvault --value $JIRA_DOMAIN
-        - run: touch ~/.ssh/private_ssh_key
+        - run: touch -p ~/.ssh/private_ssh_key
         - run: echo $PRIVATE_SSH_KEY > ~/.ssh/private_ssh_key
         - run: chmod 600 private_ssh_key
         - run: ansible-playbook migration-playbook.yml -v --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt --key-file "~/.ssh/private_ssh_key" --user "adminuser"
