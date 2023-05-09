@@ -32,6 +32,7 @@ jobs:
         ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
         EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
         EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
+        PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
 
       steps:
         - run: az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
@@ -61,6 +62,9 @@ jobs:
         - run: az keyvault secret set --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault --value $JIRA_ACCOUNT_EMAIL
         - run: az keyvault secret set --name JIRA-API-TOKEN --vault-name ejoexamkeyvault --value $JIRA_API_TOKEN
         - run: az keyvault secret set --name JIRA-DOMAIN --vault-name ejoexamkeyvault --value $JIRA_DOMAIN
+        - run: touch private_ssh_key
+        - run: echo $PRIVATE_SSH_KEY > private_ssh_key
+        - run: chmod 600 private_ssh_key
         - run: ansible-playbook migration-playbook.yml --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt
         - run: terraform destroy -auto-approve
 
