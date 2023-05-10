@@ -33,21 +33,7 @@
       cmd: "az login --service-principal -u {{ user }} -p {{ secret }} --tenant {{ tenant }}"
   - name: Save env variables
     ansible.builtin.shell:
-      cmd: touch /etc/.env
-      cmd: export ZEPHYR_API_TOKEN=$(az keyvault secret show --name ZEPHYR-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo "ZEPHYR_API_TOKEN=$ZEPHYR_API_TOKEN" > /etc/.env
-      cmd: export AZURE_API_TOKEN=$(az keyvault secret show --name AZURE-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "AZURE_API_TOKEN=$AZURE_API_TOKEN" >> /etc/.env
-      cmd: export AZURE_ORGANISATION=$(az keyvault secret show --name AZURE-ORGANISATION --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "AZURE_ORGANISATION=$AZURE_ORGANISATION" >> /etc/.env
-      cmd: export JIRA_ACCOUNT_EMAIL=$(az keyvault secret show --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "JIRA_ACCOUNT_EMAIL=$JIRA_ACCOUNT_EMAIL" >> /etc/.env
-      cmd: export JIRA_API_TOKEN=$(az keyvault secret show --name JIRA-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "JIRA_API_TOKEN=$JIRA_API_TOKEN" >> /etc/.env
-      cmd: export JIRA_DOMAIN=$(az keyvault secret show --name JIRA-DOMAIN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "JIRA_DOMAIN=$JIRA_DOMAIN" >> /etc/.env
-      cmd: export EJO_GITHUB_TOKEN=$(az keyvault secret show --name EJO-GITHUB-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: export EJO_GITHUB_USERNAME=$(az keyvault secret show --name EJO-GITHUB-USERNAME --vault-name ejoexamkeyvault | jq -r '.value')
+      cmd: touch /etc/.env; export ZEPHYR_API_TOKEN=$(az keyvault secret show --name ZEPHYR-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value'); echo "ZEPHYR_API_TOKEN=$ZEPHYR_API_TOKEN" > /etc/.env; export AZURE_API_TOKEN=$(az keyvault secret show --name AZURE-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value'); echo -e "AZURE_API_TOKEN=$AZURE_API_TOKEN" >> /etc/.env; export AZURE_ORGANISATION=$(az keyvault secret show --name AZURE-ORGANISATION --vault-name ejoexamkeyvault | jq -r '.value'); echo -e "AZURE_ORGANISATION=$AZURE_ORGANISATION" >> /etc/.env; export JIRA_ACCOUNT_EMAIL=$(az keyvault secret show --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault | jq -r '.value'); echo -e "JIRA_ACCOUNT_EMAIL=$JIRA_ACCOUNT_EMAIL" >> /etc/.env; export JIRA_API_TOKEN=$(az keyvault secret show --name JIRA-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value'); echo -e "JIRA_API_TOKEN=$JIRA_API_TOKEN" >> /etc/.env; export JIRA_DOMAIN=$(az keyvault secret show --name JIRA-DOMAIN --vault-name ejoexamkeyvault | jq -r '.value'); echo -e "JIRA_DOMAIN=$JIRA_DOMAIN" >> /etc/.env; export EJO_GITHUB_TOKEN=$(az keyvault secret show --name EJO-GITHUB-TOKEN --vault-name ejoexamkeyvault | jq -r '.value'); export EJO_GITHUB_USERNAME=$(az keyvault secret show --name EJO-GITHUB-USERNAME --vault-name ejoexamkeyvault | jq -r '.value')
   - name: Login to github docker-registry
     community.docker.docker_login:
       registry_url: ghcr.io/solidify-internal
