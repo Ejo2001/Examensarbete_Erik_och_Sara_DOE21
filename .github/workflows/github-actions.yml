@@ -63,6 +63,8 @@ jobs:
         - run: az keyvault secret set --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault --value $JIRA_ACCOUNT_EMAIL
         - run: az keyvault secret set --name JIRA-API-TOKEN --vault-name ejoexamkeyvault --value $JIRA_API_TOKEN
         - run: az keyvault secret set --name JIRA-DOMAIN --vault-name ejoexamkeyvault --value $JIRA_DOMAIN
+        - run: az keyvault secret set --name EJO-GITHUB-USERNAME --vault-name ejoexamkeyvault --value $EJO_GITHUB_USERNAME
+        - run: az keyvault secret set --name EJO-GITHUB-TOKEN --vault-name ejoexamkeyvault --value $EJO_GITHUB_TOKEN
         #- run: touch ~/private_ssh_key
         #- run: echo $PRIVATE_SSH_KEY > ~/private_ssh_key
         - run: chmod 600 $(pwd)/examensarbete_key_private
