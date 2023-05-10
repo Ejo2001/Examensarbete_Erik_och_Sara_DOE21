@@ -69,7 +69,7 @@ jobs:
         #- run: echo $PRIVATE_SSH_KEY > ~/private_ssh_key
         - run: chmod 600 $(pwd)/examensarbete_key_private
         - run: chmod 700 $(pwd)
-        - run: ansible-playbook migration-playbook.yml -v --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET" -i public_ip.txt --key-file "$(pwd)/examensarbete_key_private" --user "adminuser"
+        - run: ansible-playbook migration-playbook.yml -v --extra-vars="tenant=$ARM_TENANT_ID user=$ARM_CLIENT_ID secret=$ARM_CLIENT_SECRET githubuser=$EJO_GITHUB_USERNAME githubsecret=$EJO_GITHUB_TOKEN" -i public_ip.txt --key-file "$(pwd)/examensarbete_key_private" --user "adminuser"
         - run: terraform destroy -auto-approve
 
    

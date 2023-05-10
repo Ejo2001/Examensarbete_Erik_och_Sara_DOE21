@@ -7,6 +7,8 @@
     tenant: "NULL"
     user: "NULL"
     secret: "NULL"
+    githubuser: "NULL"
+    githubsecret: "NULL"
 
 
   tasks:
@@ -47,8 +49,12 @@
       cmd: export EJO_GITHUB_TOKEN=$(az keyvault secret show --name EJO-GITHUB-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
       cmd: export EJO_GITHUB_USERNAME=$(az keyvault secret show --name EJO-GITHUB-USERNAME --vault-name ejoexamkeyvault | jq -r '.value')
   - name: Login to github docker-registry
-    ansible.builtin.shell:
-      cmd: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
+    community.docker.docker_login:
+      registry_url: ghcr.io/solidify-internal
+      username: "{{ githubuser }}"
+      password: "{{ githubsecret }}"
+      reauthorize: true
+      #cmd: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
   - name: Run Migration
     ansible.builtin.shell:
       cmd: docker run -it --env-file .env --rm ghcr.io/solidify-internal/jtmm:latest -p zephyr -s 10006 -t N7
