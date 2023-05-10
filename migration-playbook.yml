@@ -33,19 +33,19 @@
       cmd: "az login --service-principal -u {{ user }} -p {{ secret }} --tenant {{ tenant }}"
   - name: Save env variables
     ansible.builtin.shell:
-      cmd: touch .env
+      cmd: touch $(pwd)/.env
       cmd: export ZEPHYR_API_TOKEN=$(az keyvault secret show --name ZEPHYR-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo "$ZEPHYR_API_TOKEN" >> .env
+      cmd: echo "$ZEPHYR_API_TOKEN" >> $(pwd)/.env
       cmd: export AZURE_API_TOKEN=$(az keyvault secret show --name AZURE-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "\n$AZURE_API_TOKEN" >> .env
+      cmd: echo -e "\n$AZURE_API_TOKEN" >> $(pwd)/.env
       cmd: export AZURE_ORGANISATION=$(az keyvault secret show --name AZURE-ORGANISATION --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "\n$AZURE_ORGANISATION" >> .env
+      cmd: echo -e "\n$AZURE_ORGANISATION" >> $(pwd)/.env
       cmd: export JIRA_ACCOUNT_EMAIL=$(az keyvault secret show --name JIRA-ACCOUNT-EMAIL --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "\n$JIRA_ACCOUNT_EMAIL" >> .env
+      cmd: echo -e "\n$JIRA_ACCOUNT_EMAIL" >> $(pwd)/.env
       cmd: export JIRA_API_TOKEN=$(az keyvault secret show --name JIRA-API-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "\n$JIRA_API_TOKEN" >> .env
+      cmd: echo -e "\n$JIRA_API_TOKEN" >> $(pwd)/.env
       cmd: export JIRA_DOMAIN=$(az keyvault secret show --name JIRA-DOMAIN --vault-name ejoexamkeyvault | jq -r '.value')
-      cmd: echo -e "\n$JIRA_DOMAIN" >> .env
+      cmd: echo -e "\n$JIRA_DOMAIN" >> $(pwd)/.env
       cmd: export EJO_GITHUB_TOKEN=$(az keyvault secret show --name EJO-GITHUB-TOKEN --vault-name ejoexamkeyvault | jq -r '.value')
       cmd: export EJO_GITHUB_USERNAME=$(az keyvault secret show --name EJO-GITHUB-USERNAME --vault-name ejoexamkeyvault | jq -r '.value')
   - name: Login to github docker-registry
