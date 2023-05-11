@@ -34,12 +34,14 @@ jobs:
       - run: apt update
       - run: apt install neofetch -y
       - run: neofetch
+      - run: docker ps
 
 
 
 
   deploy_migration:
       runs-on: ubuntu-latest
+      needs: test_container_image
 
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }} 
