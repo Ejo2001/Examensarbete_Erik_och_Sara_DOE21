@@ -30,6 +30,9 @@ jobs:
         ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
       options: --cpus 1
 
+    steps:
+      - run: echo "HI"
+
 
 
 
