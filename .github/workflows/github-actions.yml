@@ -31,7 +31,9 @@ jobs:
       options: --cpus 1
 
     steps:
-      - run: echo "HI"
+      - run: apt update
+      - run: apt install neofetch
+      - run: neofetch
 
 
 
