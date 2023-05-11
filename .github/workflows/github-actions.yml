@@ -26,9 +26,10 @@ jobs:
     #   options: --cpus 1
 
     steps:
-      - run: docker login -u ${{ secrets.EJO_GITHUB_USERNAME }} -p ${{ secrets.EJO_GITHUB_TOKEN }} ghcr.io/solidify-internal
+      - name: login
+        run: docker login -u ${{ secrets.EJO_GITHUB_USERNAME }} -p ${{ secrets.EJO_GITHUB_TOKEN }} ghcr.io/solidify-internal
       - name: run container
-        uses: docker://ghcr.io/solidify-internal/jtmm:latest #docker://
+        uses: docker://ghcr.io/solidify-internal/jtmm:111 #docker://
       - run: apt update; apt install neofetch -y; neofetch
 
 
