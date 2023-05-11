@@ -20,7 +20,7 @@ jobs:
   test_container_image:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/solidify-internal/jtmm:111
+      image: ubuntu:latest #ghcr.io/solidify-internal/jtmm:111
       env:
         JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
