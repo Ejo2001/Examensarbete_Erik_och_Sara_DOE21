@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: login
         run: docker login -u ${{ secrets.EJO_GITHUB_USERNAME }} -p ${{ secrets.EJO_GITHUB_TOKEN }} ghcr.io/solidify-internal
-      - run: sudo docker run -dt --rm ubuntu:latest
+      - run: docker run -dt --rm ghcr.io/solidify-internal/jtmm:111 -p zephyr -s 10006 -t N7 
       - run: apt update; apt install neofetch -y; neofetch
 
 
