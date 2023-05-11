@@ -19,16 +19,16 @@ jobs:
 
   test_container_image:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest #ghcr.io/solidify-internal/jtmm:111
-      env:
-        JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
-        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
-        AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
-        AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
-        ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
-      options: --cpus 1
+    # container:
+    #   image: ubuntu:latest #ghcr.io/solidify-internal/jtmm:111
+    #   env:
+    #     JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
+    #     JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    #     JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
+    #     AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
+    #     AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
+    #     ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
+    #   options: --cpus 1
 
     steps:
       - run: apt update
