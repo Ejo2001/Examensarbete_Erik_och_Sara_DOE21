@@ -4,20 +4,40 @@ on: [push]
 
 
 jobs:
-  login_to_registry:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.EJO_GITHUB_USERNAME }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  # login_to_registry:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: docker login -u ${{ secrets.EJO_GITHUB_USERNAME }} -p ${{ secrets.EJO_GITHUB_TOKEN }} ghcr.io/solidify-internal
+
+
+
+  # test_container_image:
+  #   runs-on: ubuntu-latest
+  #   needs: login_to_registry
+  #   # container:
+  #   #   image: ghcr.io/solidify-internal/jtmm:111 #ghcr.io/solidify-internal/jtmm:111
+  #   #   env:
+  #   #     JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }} 
+  #   #     JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+  #   #     JIRA_ACCOUNT_EMAIL: ${{ secrets.JIRA_ACCOUNT_EMAIL }}
+  #   #     AZURE_ORGANISATION: ${{ secrets.AZURE_ORGANISATION }}
+  #   #     AZURE_API_TOKEN: ${{ secrets.AZURE_API_TOKEN }}
+  #   #     ZEPHYR_API_TOKEN: ${{ secrets.ZEPHYR_API_TOKEN }}
+  #   #   options: --cpus 1
+
+  #   steps:
+  #     - name: login
+  #       run: docker login -u ${{ secrets.EJO_GITHUB_USERNAME }} -p ${{ secrets.EJO_GITHUB_TOKEN }} ghcr.io/solidify-internal
+  #     - run: docker run -dt --rm ghcr.io/solidify-internal/jtmm:111 -p zephyr -s 10006 -t N7 
+  #     - run: apt update; apt install neofetch -y; neofetch
+
+
+
 
 
   deploy_migration:
       runs-on: ubuntu-latest
+      # needs: test_container_image
 
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }} 
@@ -33,6 +53,7 @@ jobs:
         EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
         EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
         PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
+        TF_VAR_RBAC_TOKEN: ${{ secrets.TF_VAR_RBAC_TOKEN }}
         ANSIBLE_HOST_KEY_CHECKING: False
 
       steps:

@@ -43,5 +43,5 @@
       #cmd: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
   - name: Run Migration
     ansible.builtin.shell:
-      cmd: docker run -it --env-file /etc/.env --rm ghcr.io/solidify-internal/jtmm:111 -p zephyr -s 10006 -t N7 
+      cmd: docker run -it --env-file /etc/.env --rm ghcr.io/solidify-internal/jtmm:111 -p zephyr -s 10006 -t "Examensarbete Erik och Sara" 
       #cmd: echo hi
