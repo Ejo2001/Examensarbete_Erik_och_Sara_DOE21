@@ -9,6 +9,11 @@ terraform {
   required_version = ">= 1.1.0"
 }
 
+variable "RBAC_TOKEN" {
+    type        = string
+    description = "RBAC token for key vault authentication."
+}
+
 provider "azurerm" {
   features {}
   skip_provider_registration = true
@@ -127,7 +132,7 @@ resource "azurerm_key_vault" "exam_key_vault" {
 
   access_policy { 
       tenant_id = data.azurerm_client_config.current.tenant_id 
-      object_id = "bd22b5be-8949-49c5-822b-a26be8eb4506" #access_policy.value 
+      object_id = var.RBAC_TOKEN #access_policy.value 
       secret_permissions = [ "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set", "Get" ] 
   }
 }

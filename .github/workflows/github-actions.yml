@@ -53,6 +53,7 @@ jobs:
         EJO_GITHUB_USERNAME: ${{ secrets.EJO_GITHUB_USERNAME }}
         EJO_GITHUB_TOKEN: ${{ secrets.EJO_GITHUB_TOKEN }}
         PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
+        TF_VAR_RBAC_TOKEN: ${{ secrets.TF_VAR_RBAC_TOKEN }}
         ANSIBLE_HOST_KEY_CHECKING: False
 
       steps:
