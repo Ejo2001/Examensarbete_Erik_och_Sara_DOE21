@@ -1,5 +1,4 @@
 ---
-# sudo ansible-playbook migration-playbook.yml -i inventory.yml
 - name: Standard Setup
   hosts: all
   become: yes
@@ -9,6 +8,8 @@
     secret: "NULL"
     githubuser: "NULL"
     githubsecret: "NULL"
+    jiraprojectid: "NULL"
+    azureprojectname: "NULL"
 
 
   tasks:
@@ -40,8 +41,6 @@
       username: "{{ githubuser }}"
       password: "{{ githubsecret }}"
       reauthorize: true
-      #cmd: docker login -u $EJO_GITHUB_USERNAME -p $EJO_GITHUB_TOKEN ghcr.io/solidify-internal
   - name: Run Migration
     ansible.builtin.shell:
-      cmd: docker run -it --env-file /etc/.env --rm ghcr.io/solidify-internal/jtmm:111 -p zephyr -s 10006 -t "Examensarbete Erik och Sara" 
-      #cmd: echo hi
+      cmd: docker run -it --env-file /etc/.env --rm ghcr.io/solidify-internal/jtmm:111 -p zephyr -s {{ jiraprojectid }} -t {{ azureprojectname }} 

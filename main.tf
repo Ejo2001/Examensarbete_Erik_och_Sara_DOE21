@@ -114,10 +114,6 @@ resource "local_file" "public_ip_txt" {
 
 data "azurerm_client_config" "current" {}
 
-# data "azuread_user" "user"{
-# user_principal_name = "erik.olsson@solidify.dev"
-# }
-
 resource "azurerm_key_vault" "exam_key_vault" {
   name                        = "ejoexamkeyvault"
   resource_group_name         = azurerm_resource_group.examengroup.name
@@ -132,16 +128,7 @@ resource "azurerm_key_vault" "exam_key_vault" {
 
   access_policy { 
       tenant_id = data.azurerm_client_config.current.tenant_id 
-      object_id = var.RBAC_TOKEN #access_policy.value 
+      object_id = var.RBAC_TOKEN
       secret_permissions = [ "Backup", "Delete", "List", "Purge", "Recover", "Restore", "Set", "Get" ] 
   }
 }
-
-
-# Set a secret
-# resource "azurerm_key_vault_secret" "set_token" {
-#   name         = "secretpassword"
-#   value        = "secretpass!"
-#   key_vault_id = azurerm_key_vault.exam_key_vault.id
-# }
-
